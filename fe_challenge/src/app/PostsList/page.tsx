@@ -13,11 +13,11 @@ import {
   GridItem} from '@chakra-ui/react';
 import axios from 'axios';
 
-interface Post {
-  id: number;
-  user_id: number;
-  title: string;
-  body: string;
+export class Post {
+  id: number = 0;
+  user_id: number = 0;
+  title: string = '';
+  body: string = '';
 }
 
 export default function PostsList(){
@@ -47,7 +47,7 @@ export default function PostsList(){
   //console.log(pageLimit)
   console.log("post", posts)
   return (
-    <Box w="100%" h="full" bgColor="green" paddingTop={2} display="flex" flexDirection="column">
+    <Box w="100%" h="100vh" bgColor="green" paddingTop={2} display="flex" flexDirection="column">
       <Grid templateColumns="repeat(3,1fr)" h="8vh" w="90%" mx="auto">
         <GridItem w="100%">
         </GridItem>
@@ -59,7 +59,7 @@ export default function PostsList(){
         <GridItem w="100%">
           <Box display="flex" justifyContent="center" alignItems="center" h="100%">
             <Link href="/">
-              <Text>Home</Text>
+              <Text fontWeight="bold">Home</Text>
             </Link>
           </Box>
         </GridItem>
