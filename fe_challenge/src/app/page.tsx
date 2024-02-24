@@ -6,6 +6,7 @@ export default function Home() {
   return (
     <ChakraProvider>
       <Link as={NextLink} href="/PostsList">Blog Posts Lists</Link>
+      <Link as={NextLink} href="/Users">Users</Link>
     </ChakraProvider>
   )
 }

@@ -45,14 +45,6 @@ export default function PostDetails({
                   console.error('Error fetching post details:', error);
                 }
               };
-            // const fetchPostPublisher = async() => {
-            //     try {
-            //         const response3 = await axios.get(`https://gorest.co.in/public/v2/users/${post.user_id}`)
-            //         setPostPublisher(response3.data);
-            //       } catch (error) {
-            //         console.error('Error fetching post details:', error);
-            //       }
-            // }
           
               if (postId) {
                 fetchPostData();
@@ -70,7 +62,7 @@ export default function PostDetails({
                 </Box>
             );
         }
-        console.log("comm",comments)
+        //console.log("comm",comments)
         return(
             <Box w="100%" h="100vh" bgColor="green" paddingTop={2} display="flex" flexDirection="column">
                 <Grid templateColumns="repeat(3,1fr)" h="8vh" w="90%" mx="auto">
@@ -93,6 +85,9 @@ export default function PostDetails({
                             </Link>
                             <Link href="/PostsList" margin={5}>
                                 <Text fontWeight="bold">Posts List</Text>
+                            </Link>
+                            <Link href="/Users" margin={5}>
+                                <Text fontWeight="bold">Users</Text>
                             </Link>
                         </Box> 
                     </GridItem>
@@ -170,14 +165,9 @@ export default function PostDetails({
                                         {comm.email} 
                                     </Text>
                                 </Box>
-                                
-                                
                             </CardHeader>
                             <CardBody>
                                 <Text 
-                                // overflow="hidden"
-                                // whiteSpace="nowrap"
-                                // textOverflow="ellipsis"
                                     padding={5}
                                 >
                                 {comm.body}

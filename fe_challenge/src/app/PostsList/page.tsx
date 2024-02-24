@@ -61,6 +61,9 @@ export default function PostsList(){
             <Link href="/">
               <Text fontWeight="bold">Home</Text>
             </Link>
+            <Link href="/Users" margin={5}>
+              <Text fontWeight="bold">Users</Text>
+            </Link>
           </Box>
         </GridItem>
       </Grid>
