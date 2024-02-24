@@ -5,7 +5,7 @@ import { ChakraProvider, Link } from '@chakra-ui/react';
 export default function Home() {
   return (
     <ChakraProvider>
-      <Link as={NextLink} href="/PostsList">Cock</Link>
+      <Link as={NextLink} href="/PostsList">Blog Posts Lists</Link>
     </ChakraProvider>
   )
 }

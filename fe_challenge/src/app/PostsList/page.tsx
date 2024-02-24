@@ -2,16 +2,15 @@
 import React from 'react';
 import { 
   Box, 
-  UnorderedList, 
-  ListItem, 
+  Link, 
   Text, 
   Button, 
-  Stack, 
   Select, 
   Card, 
   CardHeader, 
   CardBody, 
-  CardFooter} from '@chakra-ui/react';
+  Grid,
+  GridItem} from '@chakra-ui/react';
 import axios from 'axios';
 
 interface Post {
@@ -48,66 +47,106 @@ export default function PostsList(){
   //console.log(pageLimit)
   console.log("post", posts)
   return (
-    <Box w="100%" h="full" bgColor="green" paddingTop={5} display="flex" flexDirection="column">
-      <Box padding={1} h="10vh">
-        <Text fontSize={40} fontWeight="bold" textAlign="center">Blog Posts</Text>
-      </Box>
+    <Box w="100%" h="full" bgColor="green" paddingTop={2} display="flex" flexDirection="column">
+      <Grid templateColumns="repeat(3,1fr)" h="8vh" w="90%" mx="auto">
+        <GridItem w="100%">
+        </GridItem>
+        <GridItem>
+          <Box display="flex" justifyContent="center" alignItems="center" h="100%">
+            <Text fontSize={40} fontWeight="bold" textAlign="center" my="auto">Blog Posts</Text>
+          </Box>
+        </GridItem>
+        <GridItem w="100%">
+          <Box display="flex" justifyContent="center" alignItems="center" h="100%">
+            <Link href="/">
+              <Text>Home</Text>
+            </Link>
+          </Box>
+        </GridItem>
+      </Grid>
       <Box 
         display="flex" 
-        h="5vh" 
-        w="100%"
-        justifyContent="center"
+        flexDirection="column" 
+        justifyContent="center" 
         alignItems="center"
-        flexDirection="column"
+        width="100%"
+        marginTop={4} 
       >
-        <Text fontSize={15} fontWeight="bold" textAlign="center" paddingRight={5} margin={2}>Items per Page</Text>
+        <Text fontSize={15} fontWeight="bold" textAlign="center"paddingRight={5} marginY={2}>Items per Page</Text>
         <Select
           value={limit} 
           onChange={(e)=> {setLimit(e.target.value)}}
           w="10vh"
           h="5vh"
-          mx="auto"
           variant="unstyled"
+          marginY={2}
+          paddingLeft={4}
         >
           <option value='10' >10</option>
           <option value='20' >20</option>
           <option value='40' >40</option>
         </Select>
         <style jsx global>{`
-        .chakra-select__icon-wrapper {
-          display: none; /* Hide the icon wrapper */
-        }
-      `}</style>
+          .chakra-select__icon-wrapper {
+            display: none; /* Hide the icon wrapper */
+          }
+        `}</style>
       </Box>
-        
-      
-      <Box display="block" overflowY="auto" h="76vh">
+      <Box 
+        display="flex" 
+        flexDirection="column" 
+        overflowY="auto" 
+        maxHeight="calc(100vh - 10vh - 2 * 5vh - 20px)"  
+        width="90%" 
+        mx="auto" 
+        marginTop={5} 
+      >
+        <Box maxHeight="100%" overflowY="scroll">
           {posts?.map(post => (
             <Card
               key={post.id}
-              size="lg"
+              marginY={3} // Add margin to the top and bottom
+              minH="10vh"
+              maxH="11vh"
               overflow='hidden'
               variant='outline'
-              //borderColor="black"
+              border="1mm solid black"
+              borderRadius="5px"
+              bgColor="gray" 
             >
               <CardHeader>
-                <Text>{post.title}</Text>
+                <Link href={`/PostsList/${post.id}`}>
+                  <Text 
+                    fontWeight="bold" 
+                    fontSize="25px"
+                    padding={5}
+                  >
+                    {post.title}
+                  </Text>
+                </Link>
+                
               </CardHeader>
-              {/* <CardBody>
-                <Text>{post.body}</Text>
-              </CardBody> */}
+              <CardBody>
+                <Text 
+                  overflow="hidden"
+                  whiteSpace="nowrap"
+                  textOverflow="ellipsis"
+                  padding={5}
+                >
+                  {post.body}
+                  </Text>
+              </CardBody>
             </Card>
           ))}
-        
-      </Box>
-      <Box display="flex" flexDirection="column" justifyContent="space-evenly" h="8vh">
-        <Box display="flex" justifyContent="center">
-          <Button margin={5} onClick={prevPage} size="md">Previous</Button>
-          <Text fontSize={20} margin={5}>{currentPage}</Text>
-          <Button margin={5} onClick={nextPage} size="md">Next</Button>
         </Box>
       </Box>
-      
+      <Box display="flex" flexDirection="column" h="5vh" mx="auto">
+        <Box display="flex" justifyContent="center" alignItems="center">
+          <Button margin={5} onClick={prevPage} size="lg">Prev</Button>
+          <Text fontSize={20} margin={5}>{currentPage}</Text>
+          <Button margin={5} onClick={nextPage} size="lg">Next</Button>
+        </Box>
+      </Box>
     </Box>
   );
 };
