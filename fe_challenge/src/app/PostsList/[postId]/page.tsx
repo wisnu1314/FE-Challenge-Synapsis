@@ -4,18 +4,25 @@ import axios from 'axios';
 import { Box,Grid, GridItem, Text, Link, Button, Card, CardHeader, CardBody } from '@chakra-ui/react';
 import { useRouter } from 'next/navigation';
 
-export class Comment{
-    id:number = 0;
-    post_id:number =0;
-    name:string = '';
-    email:string = '';
-    body:string= '';
-}
-export class Post {
-    id: number = 0;
-    user_id: number = 0;
-    title: string = '';
-    body: string = '';
+// export class Comment{
+//     id:number = 0;
+//     post_id:number =0;
+//     name:string = '';
+//     email:string = '';
+//     body:string= '';
+// }
+interface Comment {
+    id:number,
+    post_id:number,
+    name:string,
+    email:string,
+    body:string,
+  }
+interface Post {
+    id: number,
+    user_id: number,
+    title: string,
+    body: string,
   }
 export default function PostDetails({
         params,
@@ -24,7 +31,7 @@ export default function PostDetails({
     }){
         const router = useRouter()
         const postId = params.postId;
-        const [post, setPost] = React.useState<Post>(new Post());
+        const [post, setPost] = React.useState<Post>();
         const [comments, setComments] = React.useState<Comment[]>([])
         // const [postPublisher, setPostPublisher] = React.useState(null);
         React.useEffect(()=>{
@@ -50,9 +57,6 @@ export default function PostDetails({
                 fetchPostData();
                 fetchPostComments();
               }
-            //   if(post.user_id !== 0){
-            //     fetchPostPublisher();
-            //   }
         },[postId])
         // console.log("post")
         if (!post) {
@@ -64,7 +68,7 @@ export default function PostDetails({
         }
         //console.log("comm",comments)
         return(
-            <Box w="100%" h="100vh" bgColor="green" paddingTop={2} display="flex" flexDirection="column">
+            <Box w="100%" h="100vh" bgColor="#007958" paddingTop={2} display="flex" flexDirection="column">
                 <Grid templateColumns="repeat(3,1fr)" h="8vh" w="90%" mx="auto">
                     <GridItem w="100%">
                         <Box display="flex" justifyContent="center" alignItems="center" h="100%">

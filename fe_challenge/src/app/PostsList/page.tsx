@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 'use client'
 import React from 'react';
 import { 
@@ -13,31 +14,50 @@ import {
   GridItem} from '@chakra-ui/react';
 import axios from 'axios';
 
-export class Post {
-  id: number = 0;
-  user_id: number = 0;
-  title: string = '';
-  body: string = '';
-}
+// export class Post {
+//   id: number = 0;
+//   user_id: number = 0;
+//   title: string = '';
+//   body: string = '';
+// }
+interface Post {
+    id: number,
+    user_id: number,
+    title: string,
+    body: string,
+  }
 
 export default function PostsList(){
   const [posts, setPosts] = React.useState<Post[]>([]);
   const [currentPage, setCurrentPage] = React.useState(1);
   const [pageLimit, setPageLimit] = React.useState(1);
   const [limit, setLimit] = React.useState('10');
-  React.useEffect(() => {
-    const fetchPosts = async () => {
-      try {
-        const response = await axios.get(`https://gorest.co.in/public/v2/posts?page=${currentPage}&per_page=${Number(limit)}`);
-        setPageLimit(Math.ceil(response.headers["x-pagination-total"]/Number(limit)));
-        setPosts(response.data);
-      } catch (error) {
-        console.error('Error fetching posts:', error);
-      }
-    };
 
-    fetchPosts();
-  }, [posts, setPosts, currentPage, limit, setLimit]);
+  const fetchPosts = React.useCallback(async()=>{
+    try {
+          const response = await axios.get(`https://gorest.co.in/public/v2/posts?page=${currentPage}&per_page=${Number(limit)}`);
+          setPageLimit(Math.ceil(response.headers["x-pagination-total"]/Number(limit)));
+          setPosts(response.data);
+        } catch (error) {
+          console.error('Error fetching posts:', error);
+        }
+  },[currentPage, limit])
+  function debounce(func: (...args: any[]) => void, delay: number): (...args: any[]) => void {
+    let timer: NodeJS.Timeout; // Type annotation for timer
+    return function(this: any, ...args: any[]): void { 
+      clearTimeout(timer);
+      timer = setTimeout(() => {
+        func.apply(this, args);
+      }, delay);
+    };
+  }
+  const debouncedFetchPosts = React.useCallback(
+    debounce(fetchPosts, 500), // Adjust debounce delay as needed
+    [currentPage, limit]
+);
+  React.useEffect(() => {
+    debouncedFetchPosts();
+  }, [debouncedFetchPosts]);
   const nextPage = React.useCallback(()=>{
     setCurrentPage((currentPage < pageLimit) ? currentPage + 1 : currentPage);
   }, [currentPage, setCurrentPage, pageLimit])
@@ -47,7 +67,7 @@ export default function PostsList(){
   //console.log(pageLimit)
   console.log("post", posts)
   return (
-    <Box w="100%" h="100vh" bgColor="green" paddingTop={2} display="flex" flexDirection="column">
+    <Box w="100%" h="100vh" bgColor="#007958" paddingTop={2} display="flex" flexDirection="column">
       <Grid templateColumns="repeat(3,1fr)" h="8vh" w="90%" mx="auto">
         <GridItem w="100%">
         </GridItem>
