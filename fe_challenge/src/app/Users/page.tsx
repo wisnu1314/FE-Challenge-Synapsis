@@ -174,6 +174,7 @@ export default function Users(){
     React.useEffect(()=>{
         debouncedFetchData();
     },[debouncedFetchData])
+    console.log("curr", currentPage)
     return(
         <Box w="100%" h="100vh" bgColor="#007958" paddingTop={2} display="flex" flexDirection="column">
             <Grid templateColumns="repeat(3,1fr)" h="8vh" w="90%" mx="auto">
@@ -260,7 +261,10 @@ export default function Users(){
                                 placeholder='Name'
                                 textColor="black"
                                 value={nameQuery}
-                                onChange={(e)=> setNameQuery(e.target.value)}
+                                onChange={(e)=> {
+                                    setNameQuery(e.target.value)
+                                    setCurrentPage(1);
+                                }}
                             >
                             </Input>
                         </InputGroup>
@@ -269,7 +273,10 @@ export default function Users(){
                         <InputGroup w="100%" h="5vh" display="flex" justifyContent="center">
                             <Select
                                 value={genderQuery} 
-                                onChange={(e)=> {setGenderQuery(e.target.value)}}
+                                onChange={(e)=> {
+                                    setGenderQuery(e.target.value)
+                                    setCurrentPage(1);
+                                }}
                                 variant="unstyled"
                                 w="20vh"
                                 h="5vh"
@@ -282,7 +289,10 @@ export default function Users(){
                             </Select>
                             <Select
                                 value={statusQuery} 
-                                onChange={(e)=> {setStatusQuery(e.target.value)}}
+                                onChange={(e)=> {
+                                    setStatusQuery(e.target.value)
+                                    setCurrentPage(1);
+                                }}
                                 variant="unstyled"
                                 w="20vh"
                                 h="5vh"
