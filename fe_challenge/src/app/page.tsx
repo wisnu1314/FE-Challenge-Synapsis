@@ -48,7 +48,7 @@ export default function Home() {
           mx="auto"
           my={10}
           h="20%"
-          href="/PostsList"
+          href="/Users"
         >
           <Text
             fontWeight="bold"
