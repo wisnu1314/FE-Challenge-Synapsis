@@ -83,7 +83,7 @@ export default function PostDetails({
                         </Box>
                     </GridItem>
                     <GridItem w="100%">
-                        <Box display="flex" justifyContent="center" alignItems="center" h="100%">
+                        <Box display="flex" justifyContent="center" alignItems="center" h="100%" gap={10}>
                             <Link href="/" margin={5}>
                                 <Text fontWeight="bold">Home</Text>
                             </Link>

@@ -52,7 +52,7 @@ export default function PostsList(){
     };
   }
   const debouncedFetchPosts = React.useCallback(
-    debounce(fetchPosts, 500), // Adjust debounce delay as needed
+    debounce(fetchPosts, 250), // Adjust debounce delay as needed
     [currentPage, limit]
 );
   React.useEffect(() => {
@@ -77,7 +77,7 @@ export default function PostsList(){
           </Box>
         </GridItem>
         <GridItem w="100%">
-          <Box display="flex" justifyContent="center" alignItems="center" h="100%">
+          <Box display="flex" justifyContent="center" alignItems="center" h="100%" gap={10}>
             <Link href="/">
               <Text fontWeight="bold">Home</Text>
             </Link>
@@ -124,7 +124,15 @@ export default function PostsList(){
         mx="auto" 
         marginTop={5} 
       >
-        <Box maxHeight="100%" overflowY="scroll">
+        <Box 
+          maxHeight="100%" 
+          overflowY="scroll" 
+          sx={{
+            "&::-webkit-scrollbar": {
+              width: "0px",
+            },
+          }} 
+        >
           {posts?.map(post => (
             <Card
               key={post.id}

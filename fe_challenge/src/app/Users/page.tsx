@@ -167,15 +167,13 @@ export default function Users(){
         };
       }
     const debouncedFetchData = React.useCallback(
-        debounce(fetchData, 500), // Adjust debounce delay as needed
+        debounce(fetchData, 250), // Adjust debounce delay as needed
         [nameQuery, genderQuery, statusQuery, currentPage, limit]
     );
     
     React.useEffect(()=>{
         debouncedFetchData();
-        
     },[debouncedFetchData])
-    // console.log("token", isAccountValid())
     return(
         <Box w="100%" h="100vh" bgColor="#007958" paddingTop={2} display="flex" flexDirection="column">
             <Grid templateColumns="repeat(3,1fr)" h="8vh" w="90%" mx="auto">
@@ -362,10 +360,10 @@ export default function Users(){
                             >
                                 <ModalHeader margin={10}>
                                     {userMode === 'create' && (
-                                        <Text>Create Accout</Text>
+                                        <Text>Create Account</Text>
                                     )}
                                     {userMode === 'edit' && (
-                                        <Text>Edit Accout</Text>
+                                        <Text>Edit Account</Text>
                                     )}
                                 </ModalHeader>
                                 
